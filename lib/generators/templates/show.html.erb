@@ -1,0 +1,25 @@
+<%%- model_class = <%= resource_name.classify %> -%>
+<div class="row">
+  <div class="large-12 columns">
+    <h1><%%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+
+    <%- columns.each do |column| -%>
+      <p>
+        <strong><%%= model_class.human_attribute_name(:<%= column.name %>) %>:</strong>
+        <%%= @<%= resource_name %>.<%= column.name %> %>
+      </p>
+    <%- end -%>
+
+    <div class="panel">
+      <%%= link_to t('.back', :default => t("helpers.links.back")),
+                  <%= controller_routing_path %>_path, :class => 'button'  %>
+      <%%= link_to t('.edit', :default => t("helpers.links.edit")),
+                  edit_<%= singular_controller_routing_path %>_path(@<%= resource_name %>), :class => 'button' %>
+      <%%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                  <%= singular_controller_routing_path %>_path(@<%= resource_name %>),
+                  :method => 'delete',
+                  :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                  :class => 'button' %>
+    </div>
+  </div>
+</div>
